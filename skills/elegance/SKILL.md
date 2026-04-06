@@ -17,6 +17,7 @@ Use `scripts/elegance-ui.sh` for all visual output. Find the script relative to 
 
 ```bash
 UI="$(find ~/.claude/plugins -path '*/elegance/scripts/elegance-ui.sh' 2>/dev/null | head -1)"
+[ -z "$UI" ] && echo "elegance: UI script not found — banners disabled" >&2
 ```
 
 **Session start:** `bash "$UI" start "4 files · recent changes"`
@@ -65,7 +66,7 @@ Locate the script once at the start and reuse the path. Replace placeholder valu
 
 **Subsequent runs:** Read `.claude/elegance.local.md` and print a one-liner after the session banner:
 ```bash
-printf '\033[2m  prefs: %s · cli-opinions: %s · scope: %s\033[0m\n\n' "confirm-each" "gemini,codex" "recent"
+bash "$UI" prefs "confirm-each" "gemini,codex" "recent"
 ```
 
 **`--setup` flag:** Delete `.claude/elegance.local.md` and re-run the wizard.
@@ -127,32 +128,26 @@ Run these in parallel (one Bash call per CLI).
 
 Findings are ranked by **impact x confidence** (not grouped by level). Present them in that order.
 
-For each finding:
+Render each finding from the analyzer's output fields:
 
 ```
-### [area/file] — [finding title]
+### [file_path] — [title]
+**Level:** [level] | **Impact:** [impact] | **Confidence:** [confidence] | **Risk:** [risk]
 
-**Level:** cruft | simplify | elegant
-**Impact:** high | medium | low
-**Confidence:** high | medium | low
-**Risk:** low | medium | high
+[rationale]
 
-**What I found:**
-[Brief description]
+**Current:** [current snippet]
 
-**Why it matters:**
-[What's wrong or what opportunity exists]
+**Proposed:** [proposed snippet]
 
-**Proposed change:**
-[Before/after with code]
-
-**Contract check:**
-[How the rewrite preserves behavior, or what can't be verified]
+**Contract:** [contract_check]
 
 **Second opinions:** [if CLI opinions enabled and this is elegant-level]
 
 **Apply this change? (y/n)**
 ```
+
+Print a finding header before each: `bash "$UI" finding [level] "[title]"`
 
 ## Confirmation Protocol
 
@@ -210,4 +205,4 @@ After applying any change:
    Findings: N cruft · N simplify · N elegant
    Applied: N changes
    ```
-5. Delete `.claude/elegance-session.json`
+5. Remove the session file: `rm .claude/elegance-session.json` via the Bash tool

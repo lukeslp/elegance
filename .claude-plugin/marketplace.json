@@ -10,7 +10,7 @@
     {
       "name": "elegance",
       "source": "./",
-      "description": "Code refinement — six analysis passes that find cruft, duplication, conflicts, and the rewrite that feels inevitable. Confirms before every change.",
+      "description": "Code refinement — three parallel agents find cruft, duplication, and conflicts, then a synthesis pass finds the rewrite that feels inevitable. Confirms before every change.",
       "version": "2.0.0",
       "category": "code-quality",
       "homepage": "https://github.com/lukeslp/elegance"

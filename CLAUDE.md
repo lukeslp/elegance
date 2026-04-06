@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A Claude Code plugin for code refinement. Four agents run analysis passes in parallel (contract extraction, cruft, duplication, conflicts, first-principles rethink), then a synthesis agent looks for elegant rewrites scored against a six-dimension rubric. Findings are presented interactively with confirmation before every edit.
+A Claude Code plugin for code refinement. Three agents run analysis passes in parallel (contracts + cruft, duplication, conflicts + rethink), then a synthesis agent scores rewrites against a six-dimension rubric. Findings are presented interactively with confirmation before every edit.
 
 ## Plugin Structure
 
@@ -22,7 +22,7 @@ agents/
   elegance-conflicts-rethink.md        # Pass 3 + 4 (parallel group C)
   elegance-analyzer.md                 # Pass 5 synthesis (sequential, after A+B+C)
 scripts/
-  elegance-ui.sh                       # CLI banners, pass headers, scoreboard, finding markers
+  elegance-ui.sh                       # CLI banners, pass headers, scoreboard, finding headers, session output
 ```
 
 ## Architecture

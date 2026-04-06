@@ -1,6 +1,6 @@
 ---
 name: elegance-contract-cruft
-description: Extracts code contracts (tests, types, call sites) then scans for cruft (dead code, unused imports, orphan files). Runs as part of the parallel elegance analysis — dispatched alongside duplication and conflicts agents.
+description: Extracts code contracts (tests, types, call sites) then scans for cruft (dead code, unused imports, orphan files).
 model: inherit
 color: magenta
 tools: ["Read", "Grep", "Glob", "Bash"]

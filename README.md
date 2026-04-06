@@ -1,6 +1,6 @@
 # elegance
 
-Code refinement plugin for Claude Code. Six analysis passes that find dead code, duplication, conflicts, over-engineered logic, and the rewrite that makes you think "of course."
+Code refinement plugin for Claude Code. Three agents analyze your code in parallel, then a synthesis pass finds the rewrite that makes you think "of course."
 
 ## Install
 
@@ -35,7 +35,7 @@ Start a session at the beginning of a work block. Checkpoint as you go. Conclude
 
 ## How it works
 
-Four agents run the analysis in parallel, then a synthesis agent looks across all findings for elegant rewrites.
+Three agents run the analysis in parallel, then a synthesis agent looks across all findings for elegant rewrites.
 
 **Pass 0 + 1** — Extract contracts from tests, types, and call sites. Then scan for cruft: dead code, unused imports, orphan files, stale TODOs.
 
@@ -65,6 +65,8 @@ A rewrite earns "elegant" when it scores on three or more of: **succinctness** (
 | `elegance-duplication` | Agent | Pass 2: duplication and shared patterns |
 | `elegance-conflicts-rethink` | Agent | Pass 3 + 4: conflicts and first-principles |
 | `elegance-analyzer` | Agent | Pass 5: synthesis and the elegance rubric |
+
+| `elegance-ui.sh` | Script | CLI banners, pass headers, scoreboard, session output |
 
 For small targets (< 5 files), the skill runs analysis inline without launching agents.
 

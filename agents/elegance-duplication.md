@@ -1,6 +1,6 @@
 ---
 name: elegance-duplication
-description: Scans for duplication and shared patterns across the codebase. Finds near-identical functions, repeated CSS values, similar components, and cross-file structural repetition. Dispatched in parallel alongside contract-cruft and conflicts-rethink agents.
+description: Scans for duplication and shared patterns across the codebase. Finds near-identical functions, repeated CSS values, similar components, and cross-file structural repetition.
 model: inherit
 color: magenta
 tools: ["Read", "Grep", "Glob", "Bash"]
@@ -28,7 +28,7 @@ Covers both local duplication and cross-file opportunities:
 
 Structured list of findings, each with:
 - `file_path` and line numbers (list all instances of the pattern)
-- `level`: `simplify` or `elegant` (elegant if unification reveals a clean abstraction)
+- `level`: `simplify` (flag promising candidates for elegant in the rationale — the synthesis agent decides)
 - `confidence`: high | medium
 - `risk`: low | medium | high
 - `impact`: high | medium | low

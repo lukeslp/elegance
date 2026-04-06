@@ -40,7 +40,7 @@ Do not use web search by default. The LLM's training data covers idiomatic patte
 Return the complete ranked list of all findings (from all passes, including your new elegant-level rewrites), each with:
 - `file_path` and line numbers
 - `level`: cruft | simplify | elegant
-- `confidence`: high | medium | low
+- `confidence`: high | medium
 - `risk`: low | medium | high
 - `impact`: high | medium | low
 - `title`, `current` (with snippet), `proposed` (with code), `rationale` — cite specific rubric dimensions

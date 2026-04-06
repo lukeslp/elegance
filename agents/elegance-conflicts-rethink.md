@@ -1,6 +1,6 @@
 ---
 name: elegance-conflicts-rethink
-description: Detects code conflicts (CSS specificity fights, competing handlers, duplicate state) and rethinks complex logic from first principles. Also reviews documentation quality. Dispatched in parallel alongside contract-cruft and duplication agents.
+description: Detects code conflicts (CSS specificity fights, competing handlers, duplicate state) and rethinks complex logic from first principles. Also reviews documentation quality.
 model: inherit
 color: magenta
 tools: ["Read", "Grep", "Glob", "Bash"]
@@ -34,7 +34,7 @@ Documentation review (part of this pass):
 
 Structured list of findings, each with:
 - `file_path` and line numbers
-- `level`: `cruft` (for conflicts that are bugs) | `simplify` (for complexity reduction) | `elegant` (for first-principles rewrites)
+- `level`: `cruft` (for conflicts that are bugs) | `simplify` (for complexity reduction and first-principles rewrites — flag promising candidates for elegant in the rationale)
 - `confidence`: high | medium
 - `risk`: low | medium | high
 - `impact`: high | medium | low

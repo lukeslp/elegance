@@ -10,6 +10,7 @@
 #   finding <level> <title> Finding header
 #   session <action>        Session management (begin|checkpoint|conclude)
 #   prefs <mode> <cli> <scope>  Preference summary one-liner
+#   summary <files> <findings> <applied> <duration>  Session summary stats
 
 set -euo pipefail
 
