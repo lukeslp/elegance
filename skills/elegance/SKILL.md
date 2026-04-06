@@ -20,65 +20,48 @@ Three levels:
 - **Simplify** -- works, but working too hard (duplication, over-engineering, CSS fights)
 - **Elegant** -- the rewrite that makes you pause (a 50-line function that's really a 3-line reduce, three components that want to be one)
 
+## Elegance Rubric
+
+A change earns "elegant" when it scores on three or more of these dimensions:
+
+| Dimension | Test |
+|-----------|------|
+| **Succinctness** | Does removing any part break it? Nothing superfluous. |
+| **Readability** | Can a new team member understand it without comments? |
+| **Idiomaticity** | Does it use the language/framework the way it was designed? |
+| **Reproducibility** | Given the same problem, would multiple senior devs converge on this? |
+| **Modularity** | Can it be tested, moved, or reused without surgery? |
+| **Inertia** | Does the structure resist bugs? (illegal states unrepresentable) |
+
 ## Process
 
-Run six passes over the target code. Use the elegance-analyzer agent for the heavy scanning, then present findings interactively.
+The elegance-analyzer agent defines the analysis passes (contract extraction, cruft, duplication/shared patterns, conflicts, first-principles + documentation, elegance synthesis). This skill orchestrates the flow and presents findings interactively.
 
-### Pass 1: Cruft Scan
-- Dead code (unreachable branches, commented-out blocks)
-- Unused imports, variables, functions, files
-- Orphan files (not imported or referenced anywhere)
-- Stale dependencies
-- TODO/FIXME/HACK comments that are actually done or obsolete
+### Size Gate
 
-### Pass 2: Duplication Audit
-- Copy-pasted logic (functions or blocks that do the same thing with minor variations)
-- Near-identical components (React/Vue/Svelte components that differ by < 20%)
-- Repeated CSS patterns (same color values, spacing, shadows declared multiple times)
-- Repeated JS patterns (same fetch/error-handling/transform logic)
-- Config or constants duplicated across files
+- **Small target (< 5 files):** Run the analysis inline -- no need to launch the agent. Read the files, apply the same pass logic, present findings directly.
+- **Large target (5+ files):** Launch the elegance-analyzer agent in the background for heavy scanning, then present its findings interactively.
 
-### Pass 3: Conflict Detection
-- CSS specificity wars (styles overriding each other unnecessarily)
-- Competing JS event handlers on the same elements
-- Duplicate or conflicting CSS class names
-- Z-index battles
-- Multiple sources of truth for the same state
-- Competing animation/transition definitions
-- Tailwind + custom CSS doing the same thing
+### Determining Target
 
-### Pass 4: First-Principles Rethink
-For any complex logic (> 15 lines doing one conceptual thing):
-- What is this ACTUALLY trying to do? State it in one sentence.
-- Is there a built-in language feature, standard library function, or well-known pattern that does exactly this?
-- Can the control flow be simplified? (nested ifs → early returns, loops → map/filter/reduce, switch → object lookup)
-- Are there unnecessary intermediate variables or transformations?
-- Would inverting the logic make it clearer?
-
-### Pass 5: Shared Component Opportunities
-- 2+ components/functions with the same structure but different data
-- UI elements that appear in multiple places with slight visual variations
-- API call patterns that could be a shared hook or utility
-- Error handling that could be centralized
-- Layout patterns that repeat across pages/views
-
-### Pass 6: Elegance Search
-The interesting part. For each significant finding from passes 1-5:
-- Search for well-regarded solutions to the same problem (look for "elegant", "idiomatic", "clean" alongside the pattern)
-- Check if the language or framework already has a way to do this
-- Look for design patterns that fit naturally
-- Consider whether a library solves this exactly
-- The test: does it make the reader think "of course"?
+- If invoked on a specific file or directory, analyze that scope
+- If invoked without a target, analyze recently changed files (git diff)
+- For large codebases, focus on the most-touched files (git log --shortstat)
+- Always respect .gitignore and skip node_modules, dist, build, vendor, etc.
 
 ## Presenting Findings
 
-Group findings by file or area. For each finding:
+Findings arrive ranked by **impact x confidence** (not grouped by level). Present them in that order -- a safe, high-impact simplification surfaces before a risky elegant rewrite.
+
+For each finding:
 
 ```
 ### [area/file] — [finding title]
 
 **Level:** cruft | simplify | elegant
+**Impact:** high | medium | low
 **Confidence:** high | medium | low
+**Risk:** low | medium | high
 
 **What I found:**
 [Brief description of the current state]
@@ -89,37 +72,24 @@ Group findings by file or area. For each finding:
 **Proposed change:**
 [Show the before/after or describe the transformation]
 
+**Contract check:**
+[How the rewrite preserves existing behavior, or what can't be verified]
+
 **Apply this change? (y/n)**
 ```
-
-Present findings in priority order:
-1. **Elegant** findings first (the exciting ones)
-2. **Simplify** findings next
-3. **Cruft** last (least interesting but still valuable)
-
-Within each level, sort by impact (most improvement first).
 
 ## Confirmation Protocol
 
 - Present one finding at a time (or a small related group)
 - Wait for explicit confirmation before making ANY edit
 - If the user says "apply all" or "yes to all", you may batch-apply remaining changes of the same level
-- If the user disagrees with a finding, skip it — don't argue
+- If the user disagrees with a finding, skip it -- don't argue
 - After applying changes, show a brief summary of what was changed
 
-## What makes a finding "elegant"
+## Test Verification
 
-Not just shorter. Elegant code is where:
-- The intent is obvious on first read
-- There's no ceremony
-- It uses the tools the way they were meant to be used
-- Reading it teaches you something
-- It makes the code around it simpler too
-- It feels like the only way to write it
-
-## Scope
-
-- If invoked on a specific file or directory, analyze that scope
-- If invoked without a target, analyze recently changed files (git diff)
-- For large codebases, focus on the most-touched files (git log --shortstat)
-- Always respect .gitignore and skip node_modules, dist, build, vendor, etc.
+After applying any change:
+- If the project has a test suite, run the relevant tests
+- Report pass/fail status before moving to the next finding
+- If tests fail, immediately revert the change and flag it as higher risk
+- If no tests exist, note this in the contract check ("no automated verification available")
