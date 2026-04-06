@@ -4,44 +4,44 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A Claude Code plugin that performs deep code refinement. Five analysis passes (plus contract extraction at pass 0) find cruft, duplication, conflicts, first-principles simplifications with documentation review, and elegant rewrites scored against a six-dimension rubric. Every proposed change requires user confirmation and test verification before applying.
+A Claude Code plugin for code refinement. Four agents run analysis passes in parallel (contract extraction, cruft, duplication, conflicts, first-principles rethink), then a synthesis agent looks for elegant rewrites scored against a six-dimension rubric. Findings are presented interactively with confirmation before every edit.
 
 ## Plugin Structure
 
 ```
-.claude-plugin/plugin.json   # Plugin metadata (required for marketplace install)
-commands/elegance.md          # /elegance [path] slash command entry point
-skills/elegance/SKILL.md      # Orchestration: size-gate, presentation, confirmation, test verification
-agents/elegance-analyzer.md   # Source of truth for all pass definitions and the elegance rubric
+.claude-plugin/
+  plugin.json                          # Marketplace metadata
+  marketplace.json                     # Marketplace registry
+commands/
+  elegance.md                          # /elegance [path] [--flags] entry point
+skills/
+  elegance/SKILL.md                    # Orchestration: banners, preferences, parallel dispatch, session management
+agents/
+  elegance-contract-cruft.md           # Pass 0 + 1 (parallel group A)
+  elegance-duplication.md              # Pass 2 (parallel group B)
+  elegance-conflicts-rethink.md        # Pass 3 + 4 (parallel group C)
+  elegance-analyzer.md                 # Pass 5 synthesis (sequential, after A+B+C)
 ```
-
-The command delegates to the skill. The skill either analyzes inline (< 5 files) or launches the agent for heavy scanning, then presents findings interactively.
 
 ## Architecture
 
-**Single source of truth:** The agent defines all analysis passes and the elegance rubric. The skill references them. The README summarizes.
+**Parallel dispatch:** For 5+ files, the skill launches three agents simultaneously (passes 0-4), then feeds merged results to the synthesis agent (pass 5). For < 5 files, analysis runs inline.
 
-**Finding classification:** cruft (remove), simplify (reduce complexity), elegant (3+ rubric dimensions)
+**Ranking:** impact x confidence, risk as tiebreaker. Not grouped by level.
 
-**Ranking:** impact x confidence, with risk as tiebreaker (not grouped by level)
+**Rubric (owned by elegance-analyzer):** succinctness, readability, idiomaticity, reproducibility, modularity, inertia. Three or more dimensions required for "elegant."
 
-**Six-dimension elegance rubric:** succinctness, readability, idiomaticity, reproducibility, modularity, inertia
+**Preferences:** Saved to `.claude/elegance.local.md` on first run. Confirmation mode, external CLI opinions, default scope.
 
-**Five analysis passes:** contract extraction (pass 0), cruft scan, duplication/shared patterns, conflict detection, first-principles + documentation rethink, elegance synthesis
+**Session management:** `--begin` records git HEAD baseline, `--checkpoint` scans changes since baseline, `--conclude` summarizes and cleans up. State in `.claude/elegance-session.json`.
 
-**Confirmation gate:** Hard gate in the skill -- no edits without explicit user approval. Test verification after each applied change.
+**External CLI opinions:** Optional. For elegant-level findings, pipes before/after to detected CLIs (gemini, codex, aider) for second opinions.
 
 ## Development
 
-Pure-markdown plugin -- no build step, no dependencies. Edit the `.md` files directly.
+Pure-markdown plugin. No build step, no dependencies. Edit the `.md` files directly.
 
-- `.claude-plugin/plugin.json` is what Claude Code reads for marketplace discovery
-- `package.json` exists for npm metadata but is not used by the plugin system
-- `.claude/settings.local.json` configures dev-time permissions (not shipped)
-- The agent no longer uses WebSearch/WebFetch by default -- pattern citation comes from training data
-
-## Install
-
-```
-/install lukeslp/elegance
-```
+- `.claude-plugin/plugin.json` — marketplace discovery
+- `.claude-plugin/marketplace.json` — marketplace registry
+- `.claude/settings.local.json` — dev-time permissions (not shipped)
+- Agent tools: Read, Grep, Glob, Bash only (no WebSearch by default)
