@@ -5,8 +5,10 @@ Code refinement plugin for Claude Code. Six analysis passes that find dead code,
 ## Install
 
 ```
-/install lukeslp/elegance
+/plugin install elegance@lukeslp-elegance
 ```
+
+Or browse for it: `/plugin` → Discover → search "elegance"
 
 ## Usage
 

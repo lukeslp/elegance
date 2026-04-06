@@ -10,8 +10,8 @@
     {
       "name": "elegance",
       "source": "./",
-      "description": "Deep code refinement — finds cruft, duplication, CSS/JS conflicts, and elegant 'aha' solutions. Seeks confirmation before all changes.",
-      "version": "1.0.0",
+      "description": "Code refinement — six analysis passes that find cruft, duplication, conflicts, and the rewrite that feels inevitable. Confirms before every change.",
+      "version": "2.0.0",
       "category": "code-quality",
       "homepage": "https://github.com/lukeslp/elegance"
     }

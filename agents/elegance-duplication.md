@@ -33,7 +33,6 @@ Structured list of findings, each with:
 - `risk`: low | medium | high
 - `impact`: high | medium | low
 - `title`, `current` (with snippets from each instance), `proposed` (the unified version), `rationale`
-- `contract_check`: whether unification changes behavior for any call site
 
 Sort by impact x confidence. Only report medium or high confidence.
 Skip generated files, vendor code, node_modules, dist/, build/.

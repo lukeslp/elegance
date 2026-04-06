@@ -44,4 +44,7 @@ Pure-markdown plugin. No build step, no dependencies. Edit the `.md` files direc
 - `.claude-plugin/plugin.json` — marketplace discovery
 - `.claude-plugin/marketplace.json` — marketplace registry
 - `.claude/settings.local.json` — dev-time permissions (not shipped)
+- `.claude/elegance.local.md` — user preferences (created at runtime, not shipped)
+- `.claude/elegance-session.json` — session state for --begin/--checkpoint/--conclude (runtime only)
 - Agent tools: Read, Grep, Glob, Bash only (no WebSearch by default)
+- Contract verification happens only in the synthesis agent (Pass 5), not the parallel agents

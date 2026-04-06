@@ -17,11 +17,10 @@ Print these at key moments using the Bash tool. They make the passes visible and
 
 **Session start:**
 ```bash
-printf '\n\033[1;35m  ┌───────────────────────────────────────┐\033[0m\n'
-printf '\033[1;35m  │\033[0m  \033[1;37m◆ elegance\033[0m  \033[2m%s\033[0m\033[1;35m%*s│\033[0m\n' "$SCOPE_LABEL" $((28 - ${#SCOPE_LABEL})) ""
-printf '\033[1;35m  └───────────────────────────────────────┘\033[0m\n\n'
+printf '\n\033[1;35m  ◆ elegance\033[0m  \033[2m%s\033[0m\n' "4 files · recent changes"
+printf '\033[35m  ─────────────────────────────\033[0m\n\n'
 ```
-Where `$SCOPE_LABEL` is something like `4 files · recent changes` or `src/ · 12 files`. Adjust the padding math to fit the content.
+Replace the scope text with the actual file count and scope. Keep it simple — no box-drawing math.
 
 **Pass header** (print before each agent dispatch or inline pass):
 ```bash
@@ -35,12 +34,11 @@ printf '\033[35m  ── pass %s · %d findings ──\033[0m\n' "0+1" 3
 
 **Scoreboard** (print after all passes, before presenting findings):
 ```bash
-printf '\n\033[1;35m  ┌───────────────────────────────────────┐\033[0m\n'
-printf '\033[1;35m  │\033[0m  \033[31m%d cruft\033[0m · \033[33m%d simplify\033[0m · \033[32m%d elegant\033[0m\033[1;35m%*s│\033[0m\n' 2 3 1 $PAD ""
-printf '\033[1;35m  └───────────────────────────────────────┘\033[0m\n\n'
+printf '\n\033[35m  ─────────────────────────────\033[0m\n'
+printf '  \033[31m%d cruft\033[0m · \033[33m%d simplify\033[0m · \033[32m%d elegant\033[0m\n' 2 3 1
+printf '\033[35m  ─────────────────────────────\033[0m\n\n'
 ```
-
-Adjust padding dynamically. If numbers are large, shrink padding. Keep the boxes clean.
+Replace counts with actuals. No box-drawing — just clean dividers.
 
 ## Preferences
 
@@ -194,21 +192,22 @@ After applying any change:
 
 ### --begin
 1. Print session start banner
-2. Record current git HEAD:
-   ```bash
-   git rev-parse HEAD > .claude/elegance-session.json
+2. Get current git HEAD with `git rev-parse HEAD`
+3. Use the Write tool to save `.claude/elegance-session.json`:
+   ```json
+   { "baseRef": "<sha>", "startedAt": "<iso>", "applied": [] }
    ```
-   Save as JSON: `{ "baseRef": "<sha>", "startedAt": "<iso>", "applied": [] }`
-3. Run a full scan (equivalent to --full)
+4. Run a full scan (equivalent to --full)
 
 ### --checkpoint
 1. Read `.claude/elegance-session.json` to get baseRef
-2. Get changed files:
+2. Get changed files since baseline:
    ```bash
    git diff --name-only <baseRef>
    ```
+   Note: if you applied changes during --begin that haven't been committed, they'll show up here too. That's fine — checkpoint re-scans them with fresh eyes alongside your new work.
 3. Run analysis on those files only
-4. After applying changes, append to the session's `applied` list
+4. After applying changes, update the session's `applied` list using the Write tool
 
 ### --conclude
 1. Read `.claude/elegance-session.json`

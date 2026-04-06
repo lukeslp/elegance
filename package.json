@@ -1,8 +1,0 @@
-{
-  "name": "elegance",
-  "version": "1.0.0",
-  "description": "Deep code refinement — finds cruft, duplication, CSS/JS conflicts, and elegant 'aha' solutions. Seeks confirmation before all changes.",
-  "author": "lukeslp",
-  "license": "MIT",
-  "keywords": ["code-quality", "refactoring", "elegance", "deduplication", "cleanup"]
-}

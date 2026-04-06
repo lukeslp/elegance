@@ -41,7 +41,8 @@ Return two sections:
 - `risk`: low | medium
 - `impact`: high | medium | low
 - `title`, `current` (with snippet), `proposed`, `rationale`
-- `contract_check`: how removing this code preserves the contract
+
+Note: contract verification happens in the synthesis agent (Pass 5), not here. Include the contract context in your output so the synthesis agent can use it.
 
 Sort by impact x confidence. Only report medium or high confidence.
 Skip generated files, vendor code, node_modules, dist/, build/.
