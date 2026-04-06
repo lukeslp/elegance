@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "lukeslp-elegance",
+  "description": "Code refinement plugin — finds cruft, duplication, conflicts, and elegant rewrites",
+  "owner": {
+    "name": "Luke Steuber",
+    "email": "luke@lukesteuber.com"
+  },
+  "plugins": [
+    {
+      "name": "elegance",
+      "source": "./",
+      "description": "Deep code refinement — finds cruft, duplication, CSS/JS conflicts, and elegant 'aha' solutions. Seeks confirmation before all changes.",
+      "version": "1.0.0",
+      "category": "code-quality",
+      "homepage": "https://github.com/lukeslp/elegance"
+    }
+  ]
+}
