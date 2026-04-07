@@ -6,7 +6,9 @@
       "Bash(figlet:*)",
       "Bash(toilet -f future \"VIGILANCE\")",
       "Bash(toilet -f pagga \"VIGILANCE\")",
-      "Bash(toilet -f mono9 \"VIGILANCE\")"
+      "Bash(toilet -f mono9 \"VIGILANCE\")",
+      "Bash(toilet -f future \"DEFIANCE\")",
+      "Bash(toilet -f future \"GOVERNANCE\")"
     ]
   },
   "enableAllProjectMcpServers": true,
