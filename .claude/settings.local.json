@@ -1,6 +1,13 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(sudo apt-get:*)",
+      "Bash(sudo -S apt-get install -y figlet toilet)",
+      "Bash(figlet:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "orchestrator"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
