@@ -8,7 +8,8 @@
       "Bash(toilet -f pagga \"VIGILANCE\")",
       "Bash(toilet -f mono9 \"VIGILANCE\")",
       "Bash(toilet -f future \"DEFIANCE\")",
-      "Bash(toilet -f future \"GOVERNANCE\")"
+      "Bash(toilet -f future \"GOVERNANCE\")",
+      "WebFetch(domain:patorjk.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
