@@ -71,6 +71,26 @@ You evaluate every proposal through the lens of people with motor, cognitive, vi
 - Consistent help mechanisms across pages (3.2.6)
 - No redundant data entry (3.3.7)
 
+## Audit Scripts
+
+10 standalone Python scripts (stdlib only) in `scripts/accessibility/`:
+
+| Script | What It Checks |
+|--------|---------------|
+| `alt-text-audit.py` | Missing, empty, or suspicious alt text |
+| `contrast-checker.py` | WCAG contrast ratio between colors |
+| `cvi-contrast-check.py` | CVI-safe contrast (10:1+), photophobia |
+| `color-only-check.py` | Color as sole information carrier |
+| `focus-order-check.py` | Tabindex, non-focusable interactive elements |
+| `heading-outline.py` | Heading hierarchy, skipped levels |
+| `landmark-audit.py` | ARIA landmarks, missing main |
+| `link-text-audit.py` | Vague link text, empty links |
+| `target-size-check.py` | Undersized touch targets (24px AA, 44px AAA) |
+| `timing-audit.py` | Autoplay, animations without reduced-motion |
+
+Run: `python3 scripts/accessibility/<script>.py index.html`
+JSON output: `python3 scripts/accessibility/<script>.py --format json index.html`
+
 ## Finding Format
 
 - **Claim**: "[Proposal] creates [accessibility barrier] for [affected users]"
