@@ -1,21 +1,22 @@
 {
-  "name": "dinner-party",
-  "version": "1.0.0",
-  "description": "Multi-agent adversarial debate system — 14 specialized agents argue toward better solutions",
+  "name": "elegance",
+  "version": "2.0.0",
+  "description": "Deep code refinement and multi-agent adversarial debate — 14 agents with opposing perspectives find the version that was always meant to be written",
   "author": {
     "name": "Luke Steuber",
-    "email": "luke@dr.eamer.dev"
+    "url": "https://github.com/lukeslp"
   },
-  "repository": "https://github.com/lukeslp/dinner-party",
+  "homepage": "https://github.com/lukeslp/elegance",
+  "repository": "https://github.com/lukeslp/elegance",
   "license": "MIT",
   "keywords": [
+    "code-quality",
+    "refactoring",
+    "elegance",
     "multi-agent",
     "debate",
-    "code-review",
     "adversarial",
-    "council",
     "accessibility",
-    "data-visualization",
-    "embedded"
+    "data-visualization"
   ]
 }

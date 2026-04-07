@@ -1,19 +1,19 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "dinner-party",
-  "description": "Multi-agent adversarial debate — specialized agents argue toward better solutions",
+  "name": "lukeslp-elegance",
+  "description": "Code refinement and multi-agent adversarial debate plugin",
   "owner": {
     "name": "Luke Steuber",
     "email": "luke@lukesteuber.com"
   },
   "plugins": [
     {
-      "name": "dinner-party",
+      "name": "elegance",
       "source": "./",
-      "description": "14 agents with opposing optimization targets debate code decisions. Facts before opinions. Dissent preserved.",
-      "version": "1.0.0",
+      "description": "Deep code refinement and multi-agent adversarial debate — 14 agents with opposing perspectives find the version that was always meant to be written",
+      "version": "2.0.0",
       "category": "code-quality",
-      "homepage": "https://github.com/lukeslp/dinner-party"
+      "homepage": "https://github.com/lukeslp/elegance"
     }
   ]
 }

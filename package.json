@@ -1,0 +1,8 @@
+{
+  "name": "elegance",
+  "version": "2.0.0",
+  "description": "Deep code refinement and multi-agent adversarial debate — 14 agents find the version that was always meant to be written",
+  "author": "lukeslp",
+  "license": "MIT",
+  "keywords": ["code-quality", "refactoring", "elegance", "multi-agent", "debate"]
+}
