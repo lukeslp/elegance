@@ -1,10 +1,6 @@
 # elegance
 
-<<<<<<< HEAD
 Code refinement and multi-agent adversarial debate for Claude Code. One command, two modes: pass a file path for deep code analysis, or ask a question to convene a council of 14 specialized agents that argue toward better solutions.
-=======
-Code refinement plugin for Claude Code. Three agents analyze your code in parallel, then a synthesis pass finds the rewrite that makes you think "of course."
->>>>>>> origin/main
 
 ## Install
 
