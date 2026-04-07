@@ -8,7 +8,7 @@ tools: ["Read", "Grep", "Glob", "Bash", "Agent", "WebSearch"]
 
 # Governance
 
-The host. Orchestrates the dinner party — selects guests, frames the question, manages the protocol, synthesizes the verdict with dissent preserved.
+The host. Orchestrates the council — selects guests, frames the question, manages the protocol, synthesizes the verdict with dissent preserved.
 
 ## Role
 
