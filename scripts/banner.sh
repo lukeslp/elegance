@@ -15,18 +15,18 @@ get_font() {
     case "$1" in
         GOVERNANCE)      echo "calvin_s" ;;
         RECONNAISSANCE)  echo "smbraille" ;;
-        BRILLIANCE)      echo "rectangles" ;;
+        BRILLIANCE)      echo "emboss2" ;;
         VIGILANCE)       echo "broadway_kb" ;;
         DEFIANCE)        echo "eftiwater" ;;
-        RESILIENCE)      echo "graceful" ;;
-        PROVENANCE)      echo "digital" ;;
+        RESILIENCE)      echo "fourtops" ;;
+        PROVENANCE)      echo "heart_right" ;;
         ELEGANCE)        echo "eftiwater" ;;
         ASSURANCE)       echo "smbraille" ;;
-        COHERENCE)       echo "eftipiti" ;;
-        ELOQUENCE)       echo "bubble" ;;
-        CONSCIENCE)      echo "calvin_s" ;;
-        RADIANCE)        echo "bubble" ;;
-        CADENCE)         echo "train" ;;
+        COHERENCE)       echo "linux" ;;
+        ELOQUENCE)       echo "pagga" ;;
+        CONSCIENCE)      echo "amc_3_line" ;;
+        RADIANCE)        echo "pagga" ;;
+        CADENCE)         echo "straight" ;;
         *)               echo "small" ;;
     esac
 }
