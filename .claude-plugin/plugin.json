@@ -1,7 +1,7 @@
 {
   "name": "elegance",
   "version": "2.0.0",
-  "description": "Code refinement — three parallel agents find cruft, duplication, and conflicts, then a synthesis pass finds the rewrite that feels inevitable. Confirms before every change.",
+  "description": "Deep code refinement and multi-agent adversarial debate — 14 agents with opposing perspectives find the version that was always meant to be written",
   "author": {
     "name": "Luke Steuber",
     "url": "https://github.com/lukeslp"
@@ -13,7 +13,10 @@
     "code-quality",
     "refactoring",
     "elegance",
-    "deduplication",
-    "cleanup"
+    "multi-agent",
+    "debate",
+    "adversarial",
+    "accessibility",
+    "data-visualization"
   ]
 }
