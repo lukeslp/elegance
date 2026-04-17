@@ -12,6 +12,29 @@ Find the version that was always meant to be written.
 NEVER make changes without presenting them first and getting explicit user confirmation. Show the before, show the after, explain WHY the new version is better. Every proposed change must be confirmed.
 </HARD-GATE>
 
+## Session Reuse Sweep (fires once per session, both modes)
+
+Before Mode 1 or Mode 2 dispatches, check that the code in scope isn't reinventing wheels already turning in the user's shared infra. Runs **once per project per session**, tracked via a flag file. This is a cross-cutting gate — both Mode 1 and Mode 2 run it before their own phases begin.
+
+**Flag:** `~/.claude/state/elegance-reuse-sweep/<cwd-slug>.flag` (slug = `pwd | sed 's|/|_|g'`). If the flag exists and was modified < 24h ago, the sweep is skipped. Ensure `~/.claude/state/elegance-reuse-sweep/` exists before writing.
+
+**Scope (what to check against):**
+- **`~/shared/llm_providers/`** — especially `ProviderFactory` in `factory.py` (unified interface to 12 LLM providers: Anthropic, OpenAI, xAI, Mistral, Cohere, Gemini, Perplexity, Groq, HuggingFace, Manus, ElevenLabs, Ollama). Direct use of `anthropic.`, `openai.`, `google.generativeai`, or raw `requests.post` to LLM hosts is a duplication flag.
+- **`~/shared/utils/`**, **`~/shared/web/sse_helpers.py`**, **`~/shared/data_fetching/`** (17 API clients: arXiv, Census, GitHub, NASA, Wikipedia, YouTube, News, Weather, OpenLibrary, Semantic Scholar, Wayback, FEC, Judiciary, Finance, PubMed, Wolfram), **`~/shared/orchestration/`** (DreamCascade, DreamSwarm).
+- **`~/SNIPPETS/`** — index at `~/SNIPPETS/CLAUDE.md`. Focus on `by-pattern/`, `api-clients/`, `async-patterns/`, `database-patterns/`, `data-pipelines/`.
+
+**Sweep procedure:**
+1. Check flag. If fresh, announce `Reuse sweep already ran this session (flag: <path>, age: <Xh>)` and continue to mode dispatch. Skip steps 2–4.
+2. Grep in-scope files for duplication signals: LLM SDK imports, SSE handlers, API client boilerplate for any source listed above, retry/backoff code, cache helpers, config loaders.
+3. For each hit, look up the shared equivalent and report as a finding:
+   - **Mode 1:** emit as `Level: cruft`, `Confidence: high` with the shared import as the proposed change. Respects HARD-GATE — confirm before applying.
+   - **Mode 2:** hand findings to `@reconnaissance` as part of Phase 2 fact-finding so the council works from them.
+4. Touch the flag file regardless of whether findings were produced.
+
+**Overrides:**
+- `/elegance --resweep ...` forces a sweep even when the flag is fresh.
+- `/elegance --no-sweep ...` skips the sweep entirely (for tight iteration loops).
+
 ## Smart Routing
 
 Elegance has two modes. The input determines which runs:
@@ -110,6 +133,7 @@ Produce output, then pass to **@eloquence** for humanization (post-verdict only)
 6. **No agent speaks twice until all activated agents have spoken once.**
 7. **Brilliance must explain why a pattern transfers**, not just that it's popular.
 8. **Dissenting opinions are always preserved.** Never flatten disagreement into false consensus.
+9. **Reuse sweep findings enter Phase 2 via @reconnaissance.** Shared-infra duplicates (ProviderFactory, sse_helpers, data_fetching clients, SNIPPETS patterns) are facts, not taste — they outrank precedent.
 
 ## Council Output Format
 
