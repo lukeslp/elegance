@@ -5,7 +5,7 @@ Code refinement and multi-agent adversarial debate for Claude Code. One command,
 ## Install
 
 ```
-/install lukeslp/elegance
+/install actually-useful-ai/elegance
 ```
 
 ## Usage

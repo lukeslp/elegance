@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "lukeslp-elegance",
+  "name": "actually-useful-ai-elegance",
   "description": "Code refinement and multi-agent adversarial debate plugin",
   "owner": {
     "name": "Luke Steuber",
@@ -13,7 +13,7 @@
       "description": "Deep code refinement and multi-agent adversarial debate — 14 agents with opposing perspectives find the version that was always meant to be written",
       "version": "2.0.0",
       "category": "code-quality",
-      "homepage": "https://github.com/lukeslp/elegance"
+      "homepage": "https://github.com/actually-useful-ai/elegance"
     }
   ]
 }
